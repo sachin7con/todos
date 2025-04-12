@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <form action="/todo" method="POST">
+        <input type="text" name="task" placeholder="New Task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Uncompleted Tasks</h2>
+    <ul>
+        <% uncompleted.forEach(todo => { %>
+            <li>
+                <form action="/todo/<%= todo._id %>?_method=PUT" method="POST" style="display:inline;">
+                    <input type="text" name="task" value="<%= todo.task %>" required>
+                    <button type="submit">Update</button>
+                </form>
+
+                <form action="/todo/<%= todo._id %>/toggle" method="POST" style="display:inline;">
+                    <button type="submit">Mark Completed</button>
+                </form>
+
+                <form action="/todo/<%= todo._id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <h2>Completed Tasks</h2>
+    <ul>
+        <% completed.forEach(todo => { %>
+            <li>
+                <span style="text-decoration: line-through;"><%= todo.task %></span>
+
+                <form action="/todo/<%= todo._id %>/toggle" method="POST" style="display:inline;">
+                    <button type="submit">Mark Uncompleted</button>
+                </form>
+
+                <form action="/todo/<%= todo._id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <p><a href="/home">Go Back</a></p>
+</body>
+</html>

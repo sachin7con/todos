@@ -3,6 +3,7 @@ const express = require('express')
 const fs = require('fs').promises
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+dotenv.config();
 const app = express()
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));

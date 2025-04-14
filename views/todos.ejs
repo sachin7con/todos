@@ -3,34 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Todos</title>
+    <!-- <link rel="stylesheet" href="/style.css"> -->
+
 </head>
 <body>
-    <h1>To-Do List</h1>
+    <div style="margin-right: 15px;">
+    <p style="text-align: right;"><a href="/logout">logout</a></p></div>
+    <h1 style="text-align: center; color: green; font-weight: bold;">To-Do List</h1>
 
-    <form action="/todo" method="POST">
+    <form action="/todo" method="POST" style="text-align: center; ">
         <input type="text" name="task" placeholder="New Task" required>
-        <button type="submit">Add Task</button>
-    </form>
+        <button type="submit" >Add Task</button>
+    </form><br>
 
-    <h2>Uncompleted Tasks</h2>
-    <ul>
-        <% uncompleted.forEach(todo => { %>
-            <li>
-                <form action="/todo/<%= todo._id %>?_method=PUT" method="POST" style="display:inline;">
-                    <input type="text" name="task" value="<%= todo.task %>" required>
-                    <button type="submit">Update</button>
-                </form>
+    <h2>Todo Tasks</h2>
+<% if (uncompleted.length === 0) { %>
+    <p style="text-align: center; color: green; font-weight: bold;">🎉 All Done! No tasks pending.</p>
+<% } else { %>
+<ul>
+    <% uncompleted.forEach(todo => { %>
+        <li>
+            <form action="/todo/<%= todo._id %>?_method=PUT" method="POST" style="display:inline;" class="update-form">
+                <input type="text" name="task" value="<%= todo.task %>" readonly class="task-input" required>
+                <button type="button" class="edit-btn">Edit</button>
+                <button type="submit" class="save-btn" style="display: none; color: blue;">Save</button>
+            </form>
 
-                <form action="/todo/<%= todo._id %>/toggle" method="POST" style="display:inline;">
-                    <button type="submit">Mark Completed</button>
-                </form>
+            <form action="/todo/<%= todo._id %>/toggle" method="POST" style="display:inline;">
+                <button type="submit"">Done</button>
+            </form>
 
-                <form action="/todo/<%= todo._id %>?_method=DELETE" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        <% }) %>
-    </ul>
+            <form action="/todo/<%= todo._id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <% }) %>
+</ul>
+<% } %>
+
+    
+    <script>
+        document.querySelectorAll('.edit-btn').forEach(editBtn => {
+            editBtn.addEventListener('click', () => {
+                const form = editBtn.closest('.update-form');
+                const input = form.querySelector('.task-input');
+                const saveBtn = form.querySelector('.save-btn');
+    
+                input.removeAttribute('readonly');
+                input.focus();
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline';
+            });
+        });
+    </script>
+    <br />    
+
 
     <h2>Completed Tasks</h2>
     <ul>
@@ -39,16 +66,17 @@
                 <span style="text-decoration: line-through;"><%= todo.task %></span>
 
                 <form action="/todo/<%= todo._id %>/toggle" method="POST" style="display:inline;">
-                    <button type="submit">Mark Uncompleted</button>
+                    <button type="submit" >Undo</button>
                 </form>
 
                 <form action="/todo/<%= todo._id %>?_method=DELETE" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
+                    <button type="submit" >Delete</button>
                 </form>
             </li>
         <% }) %>
     </ul>
 
     <p><a href="/home">Go Back</a></p>
+
 </body>
 </html>

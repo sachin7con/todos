@@ -1,5 +1,5 @@
 const Users = require('../Models/Users.js')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const signupPage = (req, res) => {
     res.render('signup', {message: null });

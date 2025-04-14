@@ -9,9 +9,27 @@ router.get('/todos', isAuthenticated, async (req, res) => {
         const allTodos = await Todo.find({ userId: req.session.user._id }).sort({ createdAt: -1 });
         const uncompleted = allTodos.filter(todo => !todo.completed);
         const completed = allTodos.filter(todo => todo.completed);
-        res.render('todos', { uncompleted, completed, message: null });
+        res.render('todos', { uncompleted, completed, message: null, user: req.session.user, todos: allTodos });
     } catch (err) {
-        res.render('todos', { uncompleted: [], completed: [], message: 'Error loading todos' });
+        res.render('todos', { uncompleted: [], completed: [], user: req.session.user,  todos: allTodos, message: 'Error loading todos' });
+    }
+});
+
+
+router.put('/todo/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { task } = req.body;
+
+        console.log("PUT /todo/:id triggered");
+        console.log("Task:", task);
+        console.log("Todo ID:", id);
+
+        await Todo.findByIdAndUpdate(id, { task });
+        res.redirect('/todos');
+    } catch (err) {
+        console.error("Error updating todo:", err);
+        res.status(500).send("Failed to update todo");
     }
 });
 

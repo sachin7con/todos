@@ -1,18 +1,19 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    padding: 40px;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    padding: 30px;
+    color: #2c3e50;
 }
 
-h1 {
-    color: #2c3e50;
+h1, h2 {
     text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
 }
 
 form {
     text-align: center;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 input[type="text"],
@@ -23,13 +24,16 @@ input[type="password"] {
     margin: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 button {
-    padding: 10px 15px;
+    padding: 8px 14px;
+    margin: 2px;
     background-color: #3498db;
     border: none;
     color: white;
+    font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -51,11 +55,42 @@ li {
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+li form {
+    display: inline-block;
+    margin: 0 5px;
+}
+.task-input {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-family: inherit;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
+.task-input:focus {
+    outline: none;
+    border-bottom: 1px solid #3498db;
+    background: #f9f9f9;
 }
 
 a {
     display: block;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
+    font-weight: bold;
+    text-decoration: none;
     color: #3498db;
 }
+
+a:hover {
+    text-decoration: underline;
+}
+

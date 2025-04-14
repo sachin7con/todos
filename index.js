@@ -5,9 +5,11 @@ const mongoose = require('mongoose')
 const app = express()
 const path = require('path');
 const methodOverride = require('method-override');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const session = require('express-session');
 const Todo = require('./Models/Todos');
+const authRoutes = require('./routes/auth'); // Adjust the path if needed
 
 
 mongoose.connect('mongodb+srv://sachin7con:0hWkPBCfPtXVWAiP@cluster0.cvku5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')

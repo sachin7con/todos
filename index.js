@@ -2,6 +2,7 @@
 const express = require('express')
 const fs = require('fs').promises
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 const app = express()
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -14,7 +15,7 @@ const session = require('express-session');
 const Todo = require('./Models/Todos');
 
 
-mongoose.connect('mongodb+srv://sachin7con:0hWkPBCfPtXVWAiP@cluster0.cvku5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.MONGO_URI)
 .then( res => {
     console.log('connected to db')
 })
@@ -23,7 +24,7 @@ mongoose.connect('mongodb+srv://sachin7con:0hWkPBCfPtXVWAiP@cluster0.cvku5.mongo
 
 })
 app.use(session({
-    secret: 'dummy-key',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
@@ -64,6 +65,7 @@ app.use('/', authRoutes);
 
 
 // readFromFile();
-app.listen(3000, () => {
-        console.log('Listening to port 3000')
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});

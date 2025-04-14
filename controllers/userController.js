@@ -50,6 +50,7 @@ const login = async (req, res) => {
     }
 };
 
+
 function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();  // If logged in, proceed to the next route

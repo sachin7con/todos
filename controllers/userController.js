@@ -1,5 +1,5 @@
 const Users = require('../Models/Users.js')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const signupPage = (req, res) => {
     res.render('signup', {message: null });
@@ -49,6 +49,7 @@ const login = async (req, res) => {
         res.render('login', { message: 'Login error. Please try again.' });
     }
 };
+
 
 function isAuthenticated(req, res, next) {
     if (req.session.user) {

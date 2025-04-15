@@ -16,7 +16,7 @@ router.get('/todos', isAuthenticated, async (req, res) => {
 });
 
 
-router.post('/todo/:id', isAuthenticated, async (req, res) => {
+router.put('/todo/:id', isAuthenticated, async (req, res) => {
     try {
         const { id } = req.params;
         const { task } = req.body;

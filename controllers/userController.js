@@ -12,7 +12,7 @@ const signup = async (req, res) => {
         const existingUser = await Users.findOne({email});
 
         if(existingUser){
-            return res.render('signup', {message: 'Email alredy registered!'})
+            return res.render('signup', {message: 'Email alredy registered! Please Login!'})
         }
 
         

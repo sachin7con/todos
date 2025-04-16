@@ -3,6 +3,16 @@ const router = express.Router();
 const { signupPage, signup, login, loginPage, isAuthenticated } = require('../controllers/userController');
 const Todo = require('../Models/Todos')
 
+//Landing page
+router.get('/', (req, res) => {
+    // Check if the user is logged in, if yes, redirect to home page
+    if (req.session.user) {
+        res.redirect('/home');
+    } else {
+        res.render('index', { message: 'Welcome to the To-Do App! Please log in or sign up.' });
+    }
+});
+
 //Get all todos
 router.get('/todos', isAuthenticated, async (req, res) => {
     try {
@@ -79,10 +89,17 @@ router.post('/signup', signup);
 
 router.get('/login', loginPage);
 router.post('/login', login);
-router.get('/home', isAuthenticated, (req, res) => {
-    res.render('home', { user: req.session.user });
-});
-
+router.get('/home', isAuthenticated, async (req, res) => {
+    // res.render('home', { user: req.session.user });
+    try {
+        const allTodos = await Todo.find({ userId: req.session.user._id }).sort({ createdAt: -1 });
+        const uncompleted = allTodos.filter(todo => !todo.completed);
+        const completed = allTodos.filter(todo => todo.completed);
+        res.render('home', { uncompleted, completed, message: null, user: req.session.user, todos: allTodos });
+    } catch (err) {
+        res.render('home', { uncompleted: [], completed: [], user: req.session.user,  todos: allTodos, message: 'Error loading todos' });
+    }   
+})
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {

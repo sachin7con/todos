@@ -24,7 +24,7 @@
     <% uncompleted.forEach(todo => { %>
         <li>
             <form action="/todo/<%= todo._id %>?_method=PUT" method="POST" style="display:inline;" class="update-form">
-                <input type="text" name="task" value="<%= todo.task %>" readonly class="task-input" required>
+                <input style="text-decoration: none;" type="text" name="task" value="<%= todo.task %>" readonly class="task-input" required>
                 <button type="button" class="edit-btn">Edit</button>
                 <button type="submit" class="save-btn" style="display: none; color: blue;">Save</button>
             </form>

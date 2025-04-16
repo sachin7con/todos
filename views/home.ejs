@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html>
-<head><title>Home</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Tasks</title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-    <h1>Welcome, <%= user.name %>!</h1>
-    
-    <a href="/todos">Go to To-Do List</a>
-    <p><a href="/logout">Logout</a></p>
+<body class="home-page">
+    <a href="/logout" class="btn logout">Logout</a>
+    <div class="container">
+        <header>
+            <h1>Hello, <%= user.email %>!</h1>
+        
+        </header>
+
+        <a href="/todos">Go to Todos</a>
+    </div>
 </body>
 </html>

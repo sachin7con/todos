@@ -1,7 +1,7 @@
 // SGN , JSP, JSSR, JBB, JSRK, JMD, JSLV, JMD, JSVM 
 const express = require('express')
 const fs = require('fs').promises
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const app = express()
 const path = require('path');
 const methodOverride = require('method-override');
